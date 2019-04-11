@@ -9,21 +9,21 @@ const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 const MESSAGE_TYPES = {
   chain: 'CHAIN',
   transaction: 'TRANSACTION',
-  clear_transactions: 'CLEAR_TRANSACTIONS',
+  clearTransactions: 'CLEAR_TRANSACTIONS',
 };
 
 export default class P2pServer {
-  blockchain: Blockchain;
-  transactionPool: TransactionPool;
-  sockets: Websocket[];
+  public blockchain: Blockchain;
+  public transactionPool: TransactionPool;
+  public sockets: Websocket[];
 
-  constructor(blockchain: Blockchain, transactionPool: TransactionPool) {
+  public constructor(blockchain: Blockchain, transactionPool: TransactionPool) {
     this.blockchain = blockchain;
     this.transactionPool = transactionPool;
     this.sockets = [];
   }
 
-  listen(): void {
+  public listen(): void {
     const server = new Websocket.Server({ port: P2P_PORT });
     server.on('connection', socket => this.connectSocket(socket));
 
@@ -32,7 +32,7 @@ export default class P2pServer {
     console.log(`Listening for peer-to-peer connections on: ${P2P_PORT}`);
   }
 
-  connectToPeers(): void {
+  public connectToPeers(): void {
     peers.forEach(_ => {
       const socket = new Websocket(_);
 
@@ -40,7 +40,7 @@ export default class P2pServer {
     });
   }
 
-  connectSocket(socket: Websocket): void {
+  public connectSocket(socket: Websocket): void {
     this.sockets.push(socket);
     console.log('Socket connected');
 
@@ -49,7 +49,7 @@ export default class P2pServer {
     this.sendChain(socket);
   }
 
-  messageHandler(socket: Websocket): void {
+  public messageHandler(socket: Websocket): void {
     socket.on('message', message => {
       const data = JSON.parse(message as string);
       switch (data.type) {
@@ -59,14 +59,14 @@ export default class P2pServer {
         case MESSAGE_TYPES.transaction:
           this.transactionPool.updateOrAddTransaction(data.transaction);
           break;
-        case MESSAGE_TYPES.clear_transactions:
+        case MESSAGE_TYPES.clearTransactions:
           this.transactionPool.clear();
           break;
       }
     });
   }
 
-  sendChain(socket: Websocket): void {
+  public sendChain(socket: Websocket): void {
     socket.send(
       JSON.stringify({
         type: MESSAGE_TYPES.chain,
@@ -75,7 +75,7 @@ export default class P2pServer {
     );
   }
 
-  sendTransaction(socket: Websocket, transaction: Transaction): void {
+  public sendTransaction(socket: Websocket, transaction: Transaction): void {
     socket.send(
       JSON.stringify({
         type: MESSAGE_TYPES.transaction,
@@ -84,19 +84,19 @@ export default class P2pServer {
     );
   }
 
-  syncChains(): void {
+  public syncChains(): void {
     this.sockets.forEach(socket => this.sendChain(socket));
   }
 
-  broadcastTransaction(transaction: Transaction): void {
+  public broadcastTransaction(transaction: Transaction): void {
     this.sockets.forEach(socket => this.sendTransaction(socket, transaction));
   }
 
-  broadcastClearTransactions(): void {
+  public broadcastClearTransactions(): void {
     this.sockets.forEach(socket =>
       socket.send(
         JSON.stringify({
-          type: MESSAGE_TYPES.clear_transactions,
+          type: MESSAGE_TYPES.clearTransactions,
         }),
       ),
     );

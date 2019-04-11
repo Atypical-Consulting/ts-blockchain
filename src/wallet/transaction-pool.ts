@@ -1,13 +1,13 @@
 import Transaction from './transaction';
 
 export default class TransactionPool {
-  transactions: Transaction[];
+  public transactions: Transaction[];
 
-  constructor() {
+  public constructor() {
     this.transactions = [];
   }
 
-  updateOrAddTransaction(transaction: Transaction): void {
+  public updateOrAddTransaction(transaction: Transaction): void {
     let transactionWithId = this.transactions.find(t => t.id === transaction.id);
 
     if (transactionWithId) {
@@ -17,11 +17,11 @@ export default class TransactionPool {
     }
   }
 
-  existingTransaction(address: string): Transaction | undefined {
+  public existingTransaction(address: string): Transaction | undefined {
     return this.transactions.find(t => t.input.address === address);
   }
 
-  validTransactions(): Transaction[] {
+  public validTransactions(): Transaction[] {
     return this.transactions.filter(transaction => {
       const outputTotal = transaction.outputs.reduce((total, output) => {
         return total + output.amount;
@@ -41,7 +41,7 @@ export default class TransactionPool {
     });
   }
 
-  clear(): void {
+  public clear(): void {
     this.transactions = [];
   }
 }

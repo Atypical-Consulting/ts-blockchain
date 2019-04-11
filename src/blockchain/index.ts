@@ -1,24 +1,24 @@
 import Block from './block';
 
 export default class Blockchain {
-  chain: Block[];
+  public chain: Block[];
 
-  constructor() {
+  public constructor() {
     this.chain = [Block.genesis()];
   }
 
-  addBlock(data: any): Block {
+  public addBlock(data: any): Block {
     const block = Block.mineBlock(this.getLastBlock(), data);
     this.chain.push(block);
 
     return block;
   }
 
-  getLastBlock(): Block {
+  public getLastBlock(): Block {
     return this.chain[this.chain.length - 1];
   }
 
-  isValidChain(chain: Block[]): boolean {
+  public isValidChain(chain: Block[]): boolean {
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
       return false;
     }
@@ -35,7 +35,7 @@ export default class Blockchain {
     return true;
   }
 
-  replaceChain(newChain: Block[]): void {
+  public replaceChain(newChain: Block[]): void {
     if (newChain.length <= this.chain.length) {
       console.log('Received chain is not longer than the current chain.');
       return;

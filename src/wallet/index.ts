@@ -8,29 +8,29 @@ import Transaction from './transaction';
 import TransactionPool from './transaction-pool';
 
 export default class Wallet {
-  balance: number;
-  keyPair: ec.KeyPair;
-  publicKey: string;
-  address: string;
+  public balance: number;
+  public keyPair: ec.KeyPair;
+  public publicKey: string;
+  public address: string;
 
-  constructor() {
+  public constructor() {
     this.balance = INITIAL_BALANCE;
     this.keyPair = ChainUtil.genKeyPair();
     this.publicKey = this.keyPair.getPublic().encode('hex');
     this.address = '';
   }
 
-  toString(): string {
+  public toString(): string {
     return `Wallet -
       publicKey: ${this.publicKey.toString()}
       balance  : ${this.balance}`;
   }
 
-  sign(dataHash: any): ec.Signature {
+  public sign(dataHash: any): ec.Signature {
     return this.keyPair.sign(dataHash);
   }
 
-  createTransaction(
+  public createTransaction(
     recipient: string,
     amount: number,
     blockchain: Blockchain,
@@ -54,7 +54,7 @@ export default class Wallet {
     return transaction;
   }
 
-  calculateBalance(blockchain: Blockchain): number {
+  public calculateBalance(blockchain: Blockchain): number {
     let balance = this.balance;
     let transactions: Transaction[] = [];
     blockchain.chain.forEach(block =>
@@ -76,11 +76,6 @@ export default class Wallet {
       startTime = recentInput.input.timestamp;
     }
 
-    // transactions
-    //   .filter((transaction) => transaction.input.timestamp > startTime)
-    //   .filter((transaction) => output.address === this.publicKey)
-    //   .forEach((transaction)=> {balance += transaction})
-
     transactions.forEach(transaction => {
       if (transaction.input.timestamp > startTime) {
         transaction.outputs.forEach(output => {
@@ -94,7 +89,7 @@ export default class Wallet {
     return balance;
   }
 
-  static blockchainWallet(): Wallet {
+  public static blockchainWallet(): Wallet {
     const blockchainWallet = new this();
     blockchainWallet.address = 'blockchain-wallet';
     return blockchainWallet;

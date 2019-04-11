@@ -18,17 +18,17 @@ export interface Output {
 }
 
 export default class Transaction {
-  id: string;
-  input: any;
-  outputs: Output[];
+  public id: string;
+  public input: any;
+  public outputs: Output[];
 
-  constructor() {
+  public constructor() {
     this.id = ChainUtil.id();
     this.input = null;
     this.outputs = [];
   }
 
-  update(senderWallet: Wallet, recipient: string, amount: number): Transaction {
+  public update(senderWallet: Wallet, recipient: string, amount: number): Transaction {
     const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey) as Output;
 
     if (amount > senderOutput.amount) {
@@ -42,14 +42,14 @@ export default class Transaction {
     return this;
   }
 
-  static transactionWithOutputs(senderWallet: Wallet, outputs: Output[]) {
+  public static transactionWithOutputs(senderWallet: Wallet, outputs: Output[]) {
     const transaction = new this();
     transaction.outputs.push(...outputs);
     Transaction.signTransaction(transaction, senderWallet);
     return transaction;
   }
 
-  static newTransaction(senderWallet: Wallet, recipient: string, amount: number): Transaction {
+  public static newTransaction(senderWallet: Wallet, recipient: string, amount: number): Transaction {
     if (amount > senderWallet.balance) {
       throw new AmountExceedBalanceException(amount);
     }
@@ -63,7 +63,7 @@ export default class Transaction {
     ]);
   }
 
-  static rewardTransaction(minerWallet: Wallet, blockchainWallet: Wallet): Transaction {
+  public static rewardTransaction(minerWallet: Wallet, blockchainWallet: Wallet): Transaction {
     return Transaction.transactionWithOutputs(blockchainWallet, [
       {
         amount: MINING_REWARD,
@@ -72,7 +72,7 @@ export default class Transaction {
     ]);
   }
 
-  static signTransaction(transaction: Transaction, senderWallet: Wallet): void {
+  public static signTransaction(transaction: Transaction, senderWallet: Wallet): void {
     transaction.input = {
       timestamp: Date.now(),
       amount: senderWallet.balance,
@@ -81,7 +81,7 @@ export default class Transaction {
     };
   }
 
-  static verifyTransaction(transaction: Transaction): boolean {
+  public static verifyTransaction(transaction: Transaction): boolean {
     return ChainUtil.verifySignature(
       transaction.input.address,
       transaction.input.signature,

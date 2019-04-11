@@ -3,14 +3,14 @@ import { DIFFICULTY, MINE_RATE } from '../config';
 import Transaction from '../wallet/transaction';
 
 export default class Block {
-  timestamp: number;
-  lastHash: string;
-  hash: string;
-  data: Transaction[];
-  nonce: number;
-  difficulty: number;
+  public timestamp: number;
+  public lastHash: string;
+  public hash: string;
+  public data: Transaction[];
+  public nonce: number;
+  public difficulty: number;
 
-  constructor(
+  public constructor(
     timestamp: number,
     lastHash: string,
     hash: string,
@@ -26,7 +26,7 @@ export default class Block {
     this.difficulty = difficulty || DIFFICULTY;
   }
 
-  toString(): string {
+  public toString(): string {
     return `Block -
       Timestamp : ${this.timestamp}
       Last Hash : ${this.lastHash.substring(0, 10)}
@@ -36,13 +36,13 @@ export default class Block {
       Data      : ${this.data}`;
   }
 
-  static genesis(): Block {
+  public static genesis(): Block {
     // TODO: Replace '0' by 'Genesis time'
     return new this(0, '-----', 'f1r57-h45h', [], 0, DIFFICULTY);
     // return new this('Genesis time', '-----', 'f1r57-h45h', [], 0, DIFFICULTY);
   }
 
-  static mineBlock(lastBlock: Block, data: any): Block {
+  public static mineBlock(lastBlock: Block, data: any): Block {
     let hash;
     let timestamp;
     const lastHash = lastBlock.hash;
@@ -59,16 +59,16 @@ export default class Block {
     return new this(timestamp, lastHash, hash, data, nonce, difficulty);
   }
 
-  static hash(timestamp: number, lastHash: string, data: any, nonce: number, difficulty: number): string {
+  public static hash(timestamp: number, lastHash: string, data: any, nonce: number, difficulty: number): string {
     return ChainUtil.hash(`${timestamp}${lastHash}${data}${nonce}${difficulty}`).toString();
   }
 
-  static blockHash(block: Block): string {
+  public static blockHash(block: Block): string {
     const { timestamp, lastHash, data, nonce, difficulty } = block;
     return Block.hash(timestamp, lastHash, data, nonce, difficulty);
   }
 
-  static adjustDifficulty(lastBlock: Block, currentTime: number): number {
+  public static adjustDifficulty(lastBlock: Block, currentTime: number): number {
     let { difficulty } = lastBlock;
     difficulty = lastBlock.timestamp + MINE_RATE > currentTime ? difficulty + 1 : difficulty - 1;
     return difficulty;

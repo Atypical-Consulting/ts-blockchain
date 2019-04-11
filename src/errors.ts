@@ -1,7 +1,7 @@
 export class InvalidTransactionException extends Error {
-  address: string;
+  public address: string;
 
-  constructor(address: string) {
+  public constructor(address: string) {
     const message = `Invalid transaction from ${address}.`;
 
     super(message);
@@ -12,9 +12,9 @@ export class InvalidTransactionException extends Error {
 }
 
 export class InvalidSignatureException extends Error {
-  address: string;
+  public address: string;
 
-  constructor(address: string) {
+  public constructor(address: string) {
     const message = `Invalid signature from ${address}.`;
 
     super(message);
@@ -25,10 +25,10 @@ export class InvalidSignatureException extends Error {
 }
 
 export class AmountExceedBalanceException extends Error {
-  amount: number;
-  balance?: number;
+  public amount: number;
+  public balance?: number;
 
-  constructor(amount: number, balance?: number) {
+  public constructor(amount: number, balance?: number) {
     const message =
       balance === undefined
         ? `Amount: ${amount} exceeds balance.`
