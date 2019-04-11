@@ -1,7 +1,9 @@
+import { ec } from 'elliptic';
+
+import Wallet from '.';
 import ChainUtil from '../chain-util';
 import { MINING_REWARD } from '../config';
-import Wallet from '.';
-import { ec } from 'elliptic';
+import { AmountExceedBalanceException } from '../errors';
 
 export interface Input {
   timestamp: number;
@@ -28,15 +30,11 @@ export default class Transaction {
 
   update(senderWallet: Wallet, recipient: string, amount: number): Transaction {
     const senderOutput = this.outputs.find(
-      output => output.address === senderWallet.publicKey
+      output => output.address === senderWallet.publicKey,
     );
 
-    if (senderOutput === undefined) {
-      throw new Error('Cannot find senderOutput');
-    }
-
     if (amount > senderOutput.amount) {
-      throw new Error(`Amount: ${amount} exceeds balance.`);
+      throw new AmountExceedBalanceException(amount);
     }
 
     senderOutput.amount = senderOutput.amount - amount;
@@ -56,30 +54,30 @@ export default class Transaction {
   static newTransaction(
     senderWallet: Wallet,
     recipient: string,
-    amount: number
+    amount: number,
   ): Transaction {
     if (amount > senderWallet.balance) {
-      throw new Error(`Amount: ${amount} exceeds balance.`);
+      throw new AmountExceedBalanceException(amount);
     }
 
     return Transaction.transactionWithOutputs(senderWallet, [
       {
         amount: senderWallet.balance - amount,
-        address: senderWallet.publicKey
+        address: senderWallet.publicKey,
       },
-      { amount, address: recipient }
+      { amount, address: recipient },
     ]);
   }
 
   static rewardTransaction(
     minerWallet: Wallet,
-    blockchainWallet: Wallet
+    blockchainWallet: Wallet,
   ): Transaction {
     return Transaction.transactionWithOutputs(blockchainWallet, [
       {
         amount: MINING_REWARD,
-        address: minerWallet.publicKey
-      }
+        address: minerWallet.publicKey,
+      },
     ]);
   }
 
@@ -88,7 +86,7 @@ export default class Transaction {
       timestamp: Date.now(),
       amount: senderWallet.balance,
       address: senderWallet.publicKey,
-      signature: senderWallet.sign(ChainUtil.hash(transaction.outputs))
+      signature: senderWallet.sign(ChainUtil.hash(transaction.outputs)),
     };
   }
 
@@ -96,7 +94,7 @@ export default class Transaction {
     return ChainUtil.verifySignature(
       transaction.input.address,
       transaction.input.signature,
-      ChainUtil.hash(transaction.outputs)
+      ChainUtil.hash(transaction.outputs),
     );
   }
 }

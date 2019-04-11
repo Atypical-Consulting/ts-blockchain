@@ -1,5 +1,4 @@
 import Block from './block';
-import Transaction from '../wallet/transaction';
 
 export default class Blockchain {
   chain: Block[];

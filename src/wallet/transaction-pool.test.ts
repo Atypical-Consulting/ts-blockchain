@@ -1,7 +1,7 @@
-import TransactionPool from './transaction-pool';
-import Transaction from './transaction';
-import Wallet from './index';
+import Wallet from '.';
 import Blockchain from '../blockchain';
+import Transaction from './transaction';
+import TransactionPool from './transaction-pool';
 
 describe('TransactionPool', () => {
   let tp: TransactionPool;
@@ -18,7 +18,7 @@ describe('TransactionPool', () => {
 
   it('adds a transaction to the pool', () => {
     expect(tp.transactions.find(t => t.id === transaction.id)).toEqual(
-      transaction
+      transaction,
     );
   });
 
@@ -28,7 +28,7 @@ describe('TransactionPool', () => {
     tp.updateOrAddTransaction(newTransaction);
 
     expect(
-      JSON.stringify(tp.transactions.find(t => t.id === newTransaction.id))
+      JSON.stringify(tp.transactions.find(t => t.id === newTransaction.id)),
     ).not.toEqual(oldTransaction);
   });
 
@@ -55,7 +55,7 @@ describe('TransactionPool', () => {
 
     it('shows a difference between valid and corrupt transactions', () => {
       expect(JSON.stringify(tp.transactions)).not.toEqual(
-        JSON.stringify(validTransactions)
+        JSON.stringify(validTransactions),
       );
     });
 

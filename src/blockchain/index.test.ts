@@ -1,4 +1,4 @@
-import Blockchain from './index';
+import Blockchain from '.';
 import Block from './block';
 
 describe('Blockchain', () => {

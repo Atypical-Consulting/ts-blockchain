@@ -1,8 +1,10 @@
-import ChainUtil from '../chain-util';
-import Transaction from './transaction';
-import { INITIAL_BALANCE } from '../config';
-import Blockchain from '../blockchain';
 import { ec } from 'elliptic';
+
+import Blockchain from '../blockchain';
+import ChainUtil from '../chain-util';
+import { INITIAL_BALANCE } from '../config';
+import { AmountExceedBalanceException } from '../errors';
+import Transaction from './transaction';
 import TransactionPool from './transaction-pool';
 
 export default class Wallet {
@@ -32,14 +34,12 @@ export default class Wallet {
     recipient: string,
     amount: number,
     blockchain: Blockchain,
-    transactionPool: TransactionPool
+    transactionPool: TransactionPool,
   ): Transaction {
     this.balance = this.calculateBalance(blockchain);
 
     if (amount > this.balance) {
-      throw new Error(
-        `Amount: ${amount} exceeds current balance: ${this.balance}`
-      );
+      throw new AmountExceedBalanceException(amount, this.balance);
     }
 
     let transaction = transactionPool.existingTransaction(this.publicKey);
@@ -60,22 +60,22 @@ export default class Wallet {
     blockchain.chain.forEach(block =>
       block.data.forEach(transaction => {
         transactions.push(transaction);
-      })
+      }),
     );
 
     const walletInputs = transactions.filter(
-      transaction => transaction.input.address === this.publicKey
+      transaction => transaction.input.address === this.publicKey,
     );
 
     let startTime = 0;
 
     if (walletInputs.length > 0) {
       const recentInput = walletInputs.reduce((prev, current) =>
-        prev.input.timestamp > current.input.timestamp ? prev : current
+        prev.input.timestamp > current.input.timestamp ? prev : current,
       );
 
       balance = recentInput.outputs.find(
-        output => output.address === this.publicKey
+        output => output.address === this.publicKey,
       )!.amount;
       startTime = recentInput.input.timestamp;
     }

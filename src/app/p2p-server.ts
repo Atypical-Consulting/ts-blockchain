@@ -1,14 +1,15 @@
 import Websocket from 'ws';
+
 import Blockchain from '../blockchain';
-import TransactionPool from '../wallet/transaction-pool';
 import Transaction from '../wallet/transaction';
+import TransactionPool from '../wallet/transaction-pool';
 
 const P2P_PORT = process.env.P2P_PORT ? parseInt(process.env.P2P_PORT) : 5001;
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 const MESSAGE_TYPES = {
   chain: 'CHAIN',
   transaction: 'TRANSACTION',
-  clear_transactions: 'CLEAR_TRANSACTIONS'
+  clear_transactions: 'CLEAR_TRANSACTIONS',
 };
 
 export default class P2pServer {
@@ -69,8 +70,8 @@ export default class P2pServer {
     socket.send(
       JSON.stringify({
         type: MESSAGE_TYPES.chain,
-        chain: this.blockchain.chain
-      })
+        chain: this.blockchain.chain,
+      }),
     );
   }
 
@@ -78,8 +79,8 @@ export default class P2pServer {
     socket.send(
       JSON.stringify({
         type: MESSAGE_TYPES.transaction,
-        transaction
-      })
+        transaction,
+      }),
     );
   }
 
@@ -95,9 +96,9 @@ export default class P2pServer {
     this.sockets.forEach(socket =>
       socket.send(
         JSON.stringify({
-          type: MESSAGE_TYPES.clear_transactions
-        })
-      )
+          type: MESSAGE_TYPES.clear_transactions,
+        }),
+      ),
     );
   }
 }

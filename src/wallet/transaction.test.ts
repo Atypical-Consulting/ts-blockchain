@@ -1,6 +1,6 @@
-import Transaction from './transaction';
-import Wallet from './index';
+import Wallet from '.';
 import { MINING_REWARD } from '../config';
+import Transaction from './transaction';
 
 describe('Transaction', () => {
   let transaction: Transaction;
@@ -18,13 +18,13 @@ describe('Transaction', () => {
   it('outputs the `amount` subtracted from the wallet balance', () => {
     expect(
       transaction.outputs.find(output => output.address === wallet.publicKey)!
-        .amount
+        .amount,
     ).toEqual(wallet.balance - amount);
   });
 
   it('outputs the `amount` added to the recipient', () => {
     expect(
-      transaction.outputs.find(output => output.address === recipient)!.amount
+      transaction.outputs.find(output => output.address === recipient)!.amount,
     ).toEqual(amount);
   });
 
@@ -66,14 +66,14 @@ describe('Transaction', () => {
     it(`subtracts the next amount from the sender's output`, () => {
       expect(
         transaction.outputs.find(output => output.address === wallet.publicKey)!
-          .amount
+          .amount,
       ).toEqual(wallet.balance - amount - nextAmount);
     });
 
     it('outputs an amount for the next recipient', () => {
       expect(
         transaction.outputs.find(output => output.address === nextRecipient)!
-          .amount
+          .amount,
       ).toEqual(nextAmount);
     });
   });
@@ -82,14 +82,14 @@ describe('Transaction', () => {
     beforeEach(() => {
       transaction = Transaction.rewardTransaction(
         wallet,
-        Wallet.blockchainWallet()
+        Wallet.blockchainWallet(),
       );
     });
 
     it(`reward the miner's wallet`, () => {
       expect(
         transaction.outputs.find(output => output.address === wallet.publicKey)!
-          .amount
+          .amount,
       ).toEqual(MINING_REWARD);
     });
   });

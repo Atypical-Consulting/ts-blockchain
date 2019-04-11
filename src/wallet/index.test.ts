@@ -1,8 +1,8 @@
-import Wallet from './index';
-import TransactionPool from './transaction-pool';
+import Wallet from '.';
 import Blockchain from '../blockchain';
 import { INITIAL_BALANCE } from '../config';
 import Transaction from './transaction';
+import TransactionPool from './transaction-pool';
 
 describe('Wallet', () => {
   let wallet: Wallet;
@@ -34,8 +34,8 @@ describe('Wallet', () => {
       it('doubles the `sendAmount` subtracted from the wallet balance', () => {
         expect(
           transaction.outputs.find(
-            output => output.address === wallet.publicKey
-          )!.amount
+            output => output.address === wallet.publicKey,
+          )!.amount,
         ).toEqual(wallet.balance - sendAmount * 2);
       });
 
@@ -43,7 +43,7 @@ describe('Wallet', () => {
         expect(
           transaction.outputs
             .filter(output => output.address === recipient)
-            .map(output => output.amount)
+            .map(output => output.amount),
         ).toEqual([sendAmount, sendAmount]);
       });
     });
@@ -66,13 +66,13 @@ describe('Wallet', () => {
 
     it('calculates the balance for blockchain transactions matching the recipient', () => {
       expect(wallet.calculateBalance(bc)).toEqual(
-        INITIAL_BALANCE + addBalance * repeatAdd
+        INITIAL_BALANCE + addBalance * repeatAdd,
       );
     });
 
     it('calculates the balance for blockchain transactions matching the sender', () => {
       expect(senderWallet.calculateBalance(bc)).toEqual(
-        INITIAL_BALANCE - addBalance * repeatAdd
+        INITIAL_BALANCE - addBalance * repeatAdd,
       );
     });
 
@@ -88,7 +88,7 @@ describe('Wallet', () => {
           senderWallet.publicKey,
           subtractBalance,
           bc,
-          tp
+          tp,
         );
         bc.addBlock(tp.transactions);
       });
@@ -102,7 +102,7 @@ describe('Wallet', () => {
 
         it('calculate the recipient balance only using transactions since its most recent one', () => {
           expect(wallet.calculateBalance(bc)).toEqual(
-            recipientBalance - subtractBalance + addBalance
+            recipientBalance - subtractBalance + addBalance,
           );
         });
       });

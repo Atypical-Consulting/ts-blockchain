@@ -16,7 +16,7 @@ export default class Block {
     hash: string,
     data: Transaction[],
     nonce: number,
-    difficulty: number
+    difficulty: number,
   ) {
     this.timestamp = timestamp;
     this.lastHash = lastHash;
@@ -64,10 +64,10 @@ export default class Block {
     lastHash: string,
     data: any,
     nonce: number,
-    difficulty: number
+    difficulty: number,
   ): string {
     return ChainUtil.hash(
-      `${timestamp}${lastHash}${data}${nonce}${difficulty}`
+      `${timestamp}${lastHash}${data}${nonce}${difficulty}`,
     ).toString();
   }
 

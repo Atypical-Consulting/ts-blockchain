@@ -1,10 +1,11 @@
-import express from 'express';
 import bodyParser from 'body-parser';
+import express from 'express';
+
 import Blockchain from '../blockchain';
-import P2pServer from './p2p-server';
 import Wallet from '../wallet';
 import TransactionPool from '../wallet/transaction-pool';
 import Miner from './miner';
+import P2pServer from './p2p-server';
 
 const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
@@ -17,7 +18,7 @@ const miner = new Miner(bc, tp, wallet, p2pServer);
 
 app.use(bodyParser.json());
 
-app.get('/blocks', (req, res) => {
+app.get('/blocks', (_, res) => {
   res.json(bc.chain);
 });
 
@@ -30,7 +31,7 @@ app.post('/mine', (req, res) => {
   res.redirect('/blocks');
 });
 
-app.get('/transactions', (req, res) => {
+app.get('/transactions', (_, res) => {
   res.json(tp.transactions);
 });
 
@@ -43,13 +44,13 @@ app.post('/transact', (req, res) => {
   res.redirect('/transactions');
 });
 
-app.get('/mine-transactions', (req, res) => {
+app.get('/mine-transactions', (_, res) => {
   const block = miner.mine();
   console.log(`New block added: ${block.toString()}`);
   res.redirect('/blocks');
 });
 
-app.get('/public-key', (req, res) => {
+app.get('/public-key', (_, res) => {
   res.json({ publicKey: wallet.publicKey });
 });
 
