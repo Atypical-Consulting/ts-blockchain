@@ -1,0 +1,38 @@
+{
+  "name": "logion",
+  "version": "1.0.0",
+  "description": "Right content management blockchain",
+  "main": "src/app/index.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "jest --watchAll",
+    "dev-test": "nodemon dev-test",
+    "start": "tsc && node ./build/app.js",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app/index.ts",
+    "upgrade-interactive": "npm-check --update"
+  },
+  "author": "Philippe Matray",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto-js": "^3.1.9-1",
+    "elliptic": "^6.4.1",
+    "express": "^4.16.4",
+    "uuid": "^3.3.2",
+    "ws": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "@types/elliptic": "^6.4.6",
+    "@types/express": "^4.16.1",
+    "@types/jest": "^24.0.11",
+    "@types/uuid": "^3.4.4",
+    "@types/ws": "^6.0.1",
+    "jest": "^24.7.1",
+    "nodemon": "^1.18.11",
+    "npm-check": "5.9.0",
+    "ts-jest": "^24.0.2",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.4.3"
+  }
+}
