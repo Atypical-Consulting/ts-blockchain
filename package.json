@@ -13,9 +13,6 @@
     "lint": "eslint .",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "dev-test": "nodemon dev-test",
-    "start": "tsc && node ./build/app.js",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/app/index.ts",
     "upgrade-interactive": "npm-check --update"
   },
   "author": "Philippe Matray <phmatray@gmail.com>",
