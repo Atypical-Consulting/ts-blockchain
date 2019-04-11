@@ -17,9 +17,7 @@ describe('TransactionPool', () => {
   });
 
   it('adds a transaction to the pool', () => {
-    expect(tp.transactions.find(t => t.id === transaction.id)).toEqual(
-      transaction,
-    );
+    expect(tp.transactions.find(t => t.id === transaction.id)).toEqual(transaction);
   });
 
   it('updates a transaction in the pool', () => {
@@ -27,9 +25,7 @@ describe('TransactionPool', () => {
     const newTransaction = transaction.update(wallet, 'foo-4ddr355', 40);
     tp.updateOrAddTransaction(newTransaction);
 
-    expect(
-      JSON.stringify(tp.transactions.find(t => t.id === newTransaction.id)),
-    ).not.toEqual(oldTransaction);
+    expect(JSON.stringify(tp.transactions.find(t => t.id === newTransaction.id))).not.toEqual(oldTransaction);
   });
 
   it('clears transactions', () => {
@@ -54,9 +50,7 @@ describe('TransactionPool', () => {
     });
 
     it('shows a difference between valid and corrupt transactions', () => {
-      expect(JSON.stringify(tp.transactions)).not.toEqual(
-        JSON.stringify(validTransactions),
-      );
+      expect(JSON.stringify(tp.transactions)).not.toEqual(JSON.stringify(validTransactions));
     });
 
     it('grabs valid transactions', () => {

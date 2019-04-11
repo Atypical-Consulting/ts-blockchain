@@ -29,9 +29,7 @@ export default class Transaction {
   }
 
   update(senderWallet: Wallet, recipient: string, amount: number): Transaction {
-    const senderOutput = this.outputs.find(
-      output => output.address === senderWallet.publicKey,
-    );
+    const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey) as Output;
 
     if (amount > senderOutput.amount) {
       throw new AmountExceedBalanceException(amount);
@@ -51,11 +49,7 @@ export default class Transaction {
     return transaction;
   }
 
-  static newTransaction(
-    senderWallet: Wallet,
-    recipient: string,
-    amount: number,
-  ): Transaction {
+  static newTransaction(senderWallet: Wallet, recipient: string, amount: number): Transaction {
     if (amount > senderWallet.balance) {
       throw new AmountExceedBalanceException(amount);
     }
@@ -69,10 +63,7 @@ export default class Transaction {
     ]);
   }
 
-  static rewardTransaction(
-    minerWallet: Wallet,
-    blockchainWallet: Wallet,
-  ): Transaction {
+  static rewardTransaction(minerWallet: Wallet, blockchainWallet: Wallet): Transaction {
     return Transaction.transactionWithOutputs(blockchainWallet, [
       {
         amount: MINING_REWARD,

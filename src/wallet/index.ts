@@ -63,9 +63,7 @@ export default class Wallet {
       }),
     );
 
-    const walletInputs = transactions.filter(
-      transaction => transaction.input.address === this.publicKey,
-    );
+    const walletInputs = transactions.filter(transaction => transaction.input.address === this.publicKey);
 
     let startTime = 0;
 
@@ -74,9 +72,7 @@ export default class Wallet {
         prev.input.timestamp > current.input.timestamp ? prev : current,
       );
 
-      balance = recentInput.outputs.find(
-        output => output.address === this.publicKey,
-      )!.amount;
+      balance = recentInput.outputs.find(output => output.address === this.publicKey)!.amount;
       startTime = recentInput.input.timestamp;
     }
 

@@ -59,16 +59,8 @@ export default class Block {
     return new this(timestamp, lastHash, hash, data, nonce, difficulty);
   }
 
-  static hash(
-    timestamp: number,
-    lastHash: string,
-    data: any,
-    nonce: number,
-    difficulty: number,
-  ): string {
-    return ChainUtil.hash(
-      `${timestamp}${lastHash}${data}${nonce}${difficulty}`,
-    ).toString();
+  static hash(timestamp: number, lastHash: string, data: any, nonce: number, difficulty: number): string {
+    return ChainUtil.hash(`${timestamp}${lastHash}${data}${nonce}${difficulty}`).toString();
   }
 
   static blockHash(block: Block): string {
@@ -78,10 +70,7 @@ export default class Block {
 
   static adjustDifficulty(lastBlock: Block, currentTime: number): number {
     let { difficulty } = lastBlock;
-    difficulty =
-      lastBlock.timestamp + MINE_RATE > currentTime
-        ? difficulty + 1
-        : difficulty - 1;
+    difficulty = lastBlock.timestamp + MINE_RATE > currentTime ? difficulty + 1 : difficulty - 1;
     return difficulty;
   }
 }

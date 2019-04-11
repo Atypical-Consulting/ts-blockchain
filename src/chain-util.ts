@@ -17,13 +17,7 @@ export default class ChainUtil {
     return SHA256(JSON.stringify(data)).toString();
   }
 
-  static verifySignature(
-    publicKey: string,
-    signature: ec.Signature,
-    dataHash: string,
-  ): boolean {
-    return ecInstance
-      .keyFromPublic(publicKey, 'hex')
-      .verify(dataHash, signature);
+  static verifySignature(publicKey: string, signature: ec.Signature, dataHash: string): boolean {
+    return ecInstance.keyFromPublic(publicKey, 'hex').verify(dataHash, signature);
   }
 }
