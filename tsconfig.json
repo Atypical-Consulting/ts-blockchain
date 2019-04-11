@@ -16,7 +16,8 @@
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "noImplicitThis": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "__tests__/**/*"]
 }

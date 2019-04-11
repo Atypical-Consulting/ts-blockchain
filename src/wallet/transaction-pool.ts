@@ -1,7 +1,3 @@
-import {
-  InvalidSignatureException,
-  InvalidTransactionException,
-} from '../errors';
 import Transaction from './transaction';
 
 export default class TransactionPool {
@@ -36,11 +32,13 @@ export default class TransactionPool {
       }, 0);
 
       if (transaction.input.amount !== outputTotal) {
-        throw new InvalidTransactionException(transaction.input.address);
+        console.log(`Invalid transaction from ${transaction.input.address}.`);
+        return false;
       }
 
       if (!Transaction.verifyTransaction(transaction)) {
-        throw new InvalidSignatureException(transaction.input.address);
+        console.log(`Invalid signature from ${transaction.input.address}.`);
+        return false;
       }
 
       return transaction;
