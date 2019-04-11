@@ -13,7 +13,7 @@ export default class ChainUtil {
     return uuidV1();
   }
 
-  public static hash(data: any): string {
+  public static hash<T>(data: T): string {
     return SHA256(JSON.stringify(data)).toString();
   }
 

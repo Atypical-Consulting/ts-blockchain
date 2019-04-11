@@ -42,7 +42,7 @@ export default class Block {
     // return new this('Genesis time', '-----', 'f1r57-h45h', [], 0, DIFFICULTY);
   }
 
-  public static mineBlock(lastBlock: Block, data: any): Block {
+  public static mineBlock(lastBlock: Block, data: Transaction[]): Block {
     let hash;
     let timestamp;
     const lastHash = lastBlock.hash;
@@ -59,7 +59,13 @@ export default class Block {
     return new this(timestamp, lastHash, hash, data, nonce, difficulty);
   }
 
-  public static hash(timestamp: number, lastHash: string, data: any, nonce: number, difficulty: number): string {
+  public static hash(
+    timestamp: number,
+    lastHash: string,
+    data: Transaction[],
+    nonce: number,
+    difficulty: number,
+  ): string {
     return ChainUtil.hash(`${timestamp}${lastHash}${data}${nonce}${difficulty}`).toString();
   }
 

@@ -1,12 +1,13 @@
 import Block from './block';
+import Transaction from '../wallet/transaction';
 
 describe('Block', () => {
-  let data: string;
+  let data: Transaction[];
   let lastBlock: Block;
   let block: Block;
 
   beforeEach(() => {
-    data = 'bar';
+    data = [];
     lastBlock = Block.genesis();
     block = Block.mineBlock(lastBlock, data);
   });

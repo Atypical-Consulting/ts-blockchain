@@ -26,7 +26,7 @@ export default class Wallet {
       balance  : ${this.balance}`;
   }
 
-  public sign(dataHash: any): ec.Signature {
+  public sign(dataHash: string): ec.Signature {
     return this.keyPair.sign(dataHash);
   }
 
