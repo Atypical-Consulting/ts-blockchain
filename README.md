@@ -3,6 +3,7 @@
 [![APLv2][license-badge]][license]
 
 [![Donate][donate-badge]][donate]
+[![Donate][donate-badge2]][donate2]
 
 # Minimalistic blockchain written with TypeScript
 
@@ -23,3 +24,5 @@
 [license]: https://github.com/phmatray/ts-blockchain/blob/master/LICENSE
 [donate-badge]: https://img.shields.io/badge/☕-buy%20me%20a%20coffee-46b798.svg
 [donate]: https://www.paypal.me/phmatray/5eur
+[donate-badge2]: https://img.shields.io/badge/🚘-buy%20me%20a%20Tesla-46b798.svg
+[donate2]: https://www.paypal.me/phmatray/30000eur
