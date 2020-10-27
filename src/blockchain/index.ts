@@ -1,3 +1,4 @@
+import Transaction from '../wallet/transaction';
 import Block from './block';
 
 export default class Blockchain {
@@ -7,7 +8,7 @@ export default class Blockchain {
     this.chain = [Block.genesis()];
   }
 
-  public addBlock(data: any): Block {
+  public addBlock(data: Transaction[] | any): Block {
     const block = Block.mineBlock(this.getLastBlock(), data);
     this.chain.push(block);
 

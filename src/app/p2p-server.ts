@@ -25,7 +25,7 @@ export default class P2pServer {
 
   public listen(): void {
     const server = new Websocket.Server({ port: P2P_PORT });
-    server.on('connection', socket => this.connectSocket(socket));
+    server.on('connection', (socket) => this.connectSocket(socket));
 
     this.connectToPeers();
 
@@ -33,7 +33,7 @@ export default class P2pServer {
   }
 
   public connectToPeers(): void {
-    peers.forEach(_ => {
+    peers.forEach((_) => {
       const socket = new Websocket(_);
 
       socket.on('open', () => this.connectSocket(socket));
@@ -50,7 +50,7 @@ export default class P2pServer {
   }
 
   public messageHandler(socket: Websocket): void {
-    socket.on('message', message => {
+    socket.on('message', (message) => {
       const data = JSON.parse(message as string);
       switch (data.type) {
         case MESSAGE_TYPES.chain:
@@ -85,15 +85,15 @@ export default class P2pServer {
   }
 
   public syncChains(): void {
-    this.sockets.forEach(socket => this.sendChain(socket));
+    this.sockets.forEach((socket) => this.sendChain(socket));
   }
 
   public broadcastTransaction(transaction: Transaction): void {
-    this.sockets.forEach(socket => this.sendTransaction(socket, transaction));
+    this.sockets.forEach((socket) => this.sendTransaction(socket, transaction));
   }
 
   public broadcastClearTransactions(): void {
-    this.sockets.forEach(socket =>
+    this.sockets.forEach((socket) =>
       socket.send(
         JSON.stringify({
           type: MESSAGE_TYPES.clearTransactions,

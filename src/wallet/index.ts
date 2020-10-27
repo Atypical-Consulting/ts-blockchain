@@ -16,7 +16,7 @@ export default class Wallet {
   public constructor() {
     this.balance = INITIAL_BALANCE;
     this.keyPair = ChainUtil.genKeyPair();
-    this.publicKey = this.keyPair.getPublic().encode('hex');
+    this.publicKey = this.keyPair.getPublic().encode('hex', false);
     this.address = '';
   }
 
@@ -56,14 +56,14 @@ export default class Wallet {
 
   public calculateBalance(blockchain: Blockchain): number {
     let balance = this.balance;
-    let transactions: Transaction[] = [];
-    blockchain.chain.forEach(block =>
-      block.data.forEach(transaction => {
+    const transactions: Transaction[] = [];
+    blockchain.chain.forEach((block) =>
+      block.data.forEach((transaction) => {
         transactions.push(transaction);
       }),
     );
 
-    const walletInputs = transactions.filter(transaction => transaction.input.address === this.publicKey);
+    const walletInputs = transactions.filter((transaction) => transaction.input.address === this.publicKey);
 
     let startTime = 0;
 
@@ -72,13 +72,13 @@ export default class Wallet {
         prev.input.timestamp > current.input.timestamp ? prev : current,
       );
 
-      balance = recentInput.outputs.find(output => output.address === this.publicKey)!.amount;
+      balance = recentInput.outputs.find((output) => output.address === this.publicKey)!.amount;
       startTime = recentInput.input.timestamp;
     }
 
-    transactions.forEach(transaction => {
+    transactions?.forEach((transaction) => {
       if (transaction.input.timestamp > startTime) {
-        transaction.outputs.forEach(output => {
+        transaction.outputs.forEach((output) => {
           if (output.address === this.publicKey) {
             balance += output.amount;
           }

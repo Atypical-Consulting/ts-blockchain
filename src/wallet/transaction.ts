@@ -29,7 +29,7 @@ export default class Transaction {
   }
 
   public update(senderWallet: Wallet, recipient: string, amount: number): Transaction {
-    const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey) as Output;
+    const senderOutput = this.outputs.find((output) => output.address === senderWallet.publicKey) as Output;
 
     if (amount > senderOutput.amount) {
       throw new AmountExceedBalanceException(amount);
@@ -42,7 +42,7 @@ export default class Transaction {
     return this;
   }
 
-  public static transactionWithOutputs(senderWallet: Wallet, outputs: Output[]) {
+  public static transactionWithOutputs(senderWallet: Wallet, outputs: Output[]): Transaction {
     const transaction = new this();
     transaction.outputs.push(...outputs);
     Transaction.signTransaction(transaction, senderWallet);

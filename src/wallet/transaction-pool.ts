@@ -8,7 +8,7 @@ export default class TransactionPool {
   }
 
   public updateOrAddTransaction(transaction: Transaction): void {
-    let transactionWithId = this.transactions.find(t => t.id === transaction.id);
+    const transactionWithId = this.transactions.find((t) => t.id === transaction.id);
 
     if (transactionWithId) {
       this.transactions[this.transactions.indexOf(transactionWithId)] = transaction;
@@ -18,11 +18,11 @@ export default class TransactionPool {
   }
 
   public existingTransaction(address: string): Transaction | undefined {
-    return this.transactions.find(t => t.input.address === address);
+    return this.transactions.find((t) => t.input.address === address);
   }
 
   public validTransactions(): Transaction[] {
-    return this.transactions.filter(transaction => {
+    return this.transactions.filter((transaction) => {
       const outputTotal = transaction.outputs.reduce((total, output) => {
         return total + output.amount;
       }, 0);

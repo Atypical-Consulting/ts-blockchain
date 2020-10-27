@@ -1,6 +1,6 @@
 import SHA256 from 'crypto-js/sha256';
 import { ec } from 'elliptic';
-import uuidV1 from 'uuid/v1';
+import { v4 as uuidv4 } from 'uuid';
 
 const ecInstance = new ec('secp256k1');
 
@@ -10,7 +10,7 @@ export default class ChainUtil {
   }
 
   public static id(): string {
-    return uuidV1();
+    return uuidv4();
   }
 
   public static hash<T>(data: T): string {
