@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Minimalistic blockchain written with TypeScript",
   "engines": {
-    "node": ">= 14.13 <15"
+    "node": ">= 14.13"
   },
   "main": "src/app/index.ts",
   "scripts": {
