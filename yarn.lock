@@ -587,10 +587,10 @@
   resolved "https://registry.yarnpkg.com/@types/crypto-js/-/crypto-js-4.0.1.tgz#3a4bd24518b0e6c5940da4e2659eeb2ef0806963"
   integrity sha512-6+OPzqhKX/cx5xh+yO8Cqg3u3alrkhoxhE5ZOdSEv0DOzJ13lwJ6laqGU0Kv6+XDMFmlnGId04LtY22PsFLQUw==
 
-"@types/elliptic@6.4.12":
-  version "6.4.12"
-  resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.12.tgz#e8add831f9cc9a88d9d84b3733ff669b68eaa124"
-  integrity sha512-gP1KsqoouLJGH6IJa28x7PXb3cRqh83X8HCLezd2dF+XcAIMKYv53KV+9Zn6QA561E120uOqZBQ+Jy/cl+fviw==
+"@types/elliptic@6.4.16":
+  version "6.4.16"
+  resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.16.tgz#3a28a7d14e26f9e786d71f2a895ac493e7c8a3be"
+  integrity sha512-MSN6m9BR51W1/umzcsX0K9dAmJ59ECKxOjZ3XsjvsZAt+q0mTmKlzEdwtU+u4i+Om231d8TuY3xK6FAGIs5MbA==
   dependencies:
     "@types/bn.js" "*"
 
