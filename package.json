@@ -23,7 +23,7 @@
     "elliptic": "6.6.1",
     "express": "4.22.1",
     "tslib": "2.8.1",
-    "uuid": "8.3.2",
+    "uuid": "13.0.0",
     "ws": "7.5.10"
   },
   "devDependencies": {
