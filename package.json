@@ -40,7 +40,7 @@
     "eslint-plugin-prettier": "3.4.1",
     "jest": "26.6.3",
     "nodemon": "3.1.14",
-    "prettier": "2.8.8",
+    "prettier": "3.8.1",
     "rimraf": "3.0.2",
     "ts-jest": "26.5.6",
     "ts-node-dev": "1.0.0",
