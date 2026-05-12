@@ -24,7 +24,7 @@
     "express": "5.2.1",
     "tslib": "2.8.1",
     "uuid": "13.0.2",
-    "ws": "8.20.0"
+    "ws": "8.20.1"
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
