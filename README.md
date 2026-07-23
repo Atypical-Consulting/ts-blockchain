@@ -1,3 +1,5 @@
+![ts-blockchain banner](.github/banner.png)
+
 # TS-Blockchain
 
 > **Learn blockchain fundamentals by building one from scratch -- blocks, mining, wallets, transactions, and P2P networking in TypeScript.**
