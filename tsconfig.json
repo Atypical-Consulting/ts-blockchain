@@ -3,6 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "importHelpers": true,
@@ -20,6 +21,7 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "types": ["node", "jest"],
   },
   "include": ["src/**/*", "__tests__/**/*"],
 }

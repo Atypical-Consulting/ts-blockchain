@@ -51,7 +51,7 @@ export default class P2pServer {
 
   public messageHandler(socket: Websocket): void {
     socket.on('message', (message) => {
-      const data = JSON.parse(message as string);
+      const data = JSON.parse(message.toString());
       switch (data.type) {
         case MESSAGE_TYPES.chain:
           this.blockchain.replaceChain(data.chain);
