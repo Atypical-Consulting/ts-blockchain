@@ -24,7 +24,7 @@
     "express": "5.2.1",
     "tslib": "2.8.1",
     "uuid": "11.1.1",
-    "ws": "8.21.1"
+    "ws": "8.21.2"
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
@@ -34,8 +34,8 @@
     "@types/node": "24.13.3",
     "@types/uuid": "11.0.0",
     "@types/ws": "8.18.1",
-    "@typescript-eslint/eslint-plugin": "8.65.0",
-    "@typescript-eslint/parser": "8.65.0",
+    "@typescript-eslint/eslint-plugin": "8.66.0",
+    "@typescript-eslint/parser": "8.66.0",
     "eslint": "10.8.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.6",
